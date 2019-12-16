@@ -4,8 +4,8 @@ import MessageCard from './MessageCard';
 
 interface MessageProps {
   username:string;
-  isMe?:boolean;
   text?:string;
+  isMe?:boolean;
 }
 
 const useStyles = makeStyles(theme => ({
