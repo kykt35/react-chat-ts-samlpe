@@ -11,6 +11,7 @@ interface ChatMessages{
 }
 interface ChatProps {
   chatMessages:ChatMessages[];
+  user:{username:string}
 }
 
 const useStyles = makeStyles(theme => ({
@@ -28,10 +29,11 @@ const useStyles = makeStyles(theme => ({
 )
 
 const MessageArea: FC<ChatProps> = ({
-  chatMessages
+  chatMessages,
+  user
 }) => {
   const classes = useStyles()
-  const messages = chatMessages.map((m, index) => <MessageBody username={m.username} text={m.text} isMe={m.isMe} key={index}/>);
+  const messages = chatMessages.map((m, index) => <MessageBody username={m.username} text={m.text} isMe={m.username === user.username} key={index}/>);
 
   return (
     <Box className={classes.root}>
