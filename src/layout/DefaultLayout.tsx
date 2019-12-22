@@ -12,7 +12,7 @@ interface DefaultLayoutProps {
 
 const useStyles = makeStyles(() => ({
     root: {
-        height: '100%',
+        height: '100vh',
     },
     layoutInner: {
         width: '100%',
@@ -27,7 +27,7 @@ export const DefaultLayout: FC<DefaultLayoutProps> = ({
 }) => {
     const classes = useStyles();
     return (
-        <Container maxWidth="lg" className={clsx(classes.root, className)}>
+        <Container maxWidth="lg" className={classes.root}>
             <AppHeader currentUser={state.currentUser} />
             <Box id="default-layout-innner" className={classes.layoutInner}>
                 {children}

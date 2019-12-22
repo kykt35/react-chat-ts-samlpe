@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 
 import { Container, makeStyles, createStyles } from '@material-ui/core';
-import { LoginCard } from '../components/LoginCard';
+import { SignUpCard } from '../components/SignUpCard';
 import firebase, { db } from '../firebase';
 import { AppState } from '../App';
 import { DefaultLayout } from '../layout';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-export const SignInPage: FC<AppState> = state => {
+export const SignUpPage: FC<AppState> = state => {
     const [values, setValues] = useState({ email: '', password: '' });
     const history = useHistory();
 
@@ -45,10 +45,10 @@ export const SignInPage: FC<AppState> = state => {
     ) => {
         handleChange('password', event);
     };
-    const login = () => {
-        firebase
+    const signUp = async () => {
+        await firebase
             .auth()
-            .signInWithEmailAndPassword(values.email, values.password)
+            .createUserWithEmailAndPassword(values.email, values.password)
             .then(() => {
                 const currentUser = firebase.auth().currentUser;
                 sessionStorage.setItem(
@@ -65,6 +65,7 @@ export const SignInPage: FC<AppState> = state => {
                 );
             });
     };
+
     const classes = useStyles();
     return (
         <DefaultLayout state={state} className={classes.root}>
@@ -73,13 +74,13 @@ export const SignInPage: FC<AppState> = state => {
                 maxWidth="sm"
                 className={classes.loginWrap}
             >
-                <LoginCard
+                <SignUpCard
                     className={classes.loginCard}
                     email={values.email}
                     password={values.password}
                     onChangeEmail={handleEmailChange}
                     onChangePassword={handlePasswordChange}
-                    onClickLogin={login}
+                    onClickLogin={signUp}
                 />
             </Container>
         </DefaultLayout>

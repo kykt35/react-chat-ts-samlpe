@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, makeStyles, createStyles, Link } from '@material-ui/core';
+import { Box, Button, makeStyles, createStyles, Link } from '@material-ui/core';
 import firebase, { db } from '../firebase';
 import { AppState } from '../App';
 
@@ -17,6 +17,8 @@ const useStyles = makeStyles(fixed =>
             boxSizing: 'border-box',
             backgroundColor: 'lemonchiffon',
             position: 'sticky',
+            display: 'flex',
+            justifyContent: 'space-between',
         },
         logo: {
             fontSize: 26,
@@ -27,6 +29,9 @@ const useStyles = makeStyles(fixed =>
 
 const AppHeader: FC<AppHeaderProps> = ({ currentUser, fixed = false }) => {
     const classes = useStyles(fixed);
+    const hadleSignOut = () => {
+        firebase.auth().signOut();
+    };
 
     return (
         <Box className={classes.root}>
@@ -35,7 +40,16 @@ const AppHeader: FC<AppHeaderProps> = ({ currentUser, fixed = false }) => {
                     chat-sample
                 </Link>
             </Box>
-            <Box>{currentUser?.displayName || currentUser?.email}</Box>
+            <Box>
+                <Box>{currentUser?.displayName || currentUser?.email}</Box>
+                {currentUser ? (
+                    <Button onClick={hadleSignOut}>sign out</Button>
+                ) : (
+                    <Button>
+                        <Link href="/sign_in">sign in</Link>
+                    </Button>
+                )}
+            </Box>
         </Box>
     );
 };
