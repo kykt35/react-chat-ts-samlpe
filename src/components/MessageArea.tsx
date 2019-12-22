@@ -1,47 +1,38 @@
 import React, { FC } from 'react';
 import MessageBody from './MessageBody';
+import clsx from 'clsx';
+import { Box, makeStyles } from '@material-ui/core';
 
-import {  Box, makeStyles } from '@material-ui/core';
-
-
-interface ChatMessages{
-  username:string;
-  isMe?:boolean;
-  text?:string;
+interface ChatMessages {
+    username: string;
+    isMe?: boolean;
+    text?: string;
 }
 interface ChatProps {
-  chatMessages:ChatMessages[];
-  user:{username:string}
+    chatMessages: ChatMessages[];
+    user: { username: string };
+    className?: string;
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
-        position: "relative",
+        position: 'relative',
     },
-    sendBox: {
-      width: '100%',
-      position: "fixed",
-      bottom: 0,
-      left: 0,
-    }
-  })
-)
+}));
 
-const MessageArea: FC<ChatProps> = ({
-  chatMessages,
-  user
-}) => {
-  const classes = useStyles()
-  const messages = chatMessages.map((m, index) => <MessageBody username={m.username} text={m.text} isMe={m.username === user.username} key={index}/>);
+const MessageArea: FC<ChatProps> = ({ chatMessages, user, className }) => {
+    const classes = useStyles();
+    const messages = chatMessages.map((m, index) => (
+        <MessageBody
+            username={m.username}
+            text={m.text}
+            isMe={m.username === user.username}
+            key={index}
+        />
+    ));
 
-  return (
-    <Box className={classes.root}>
-      <Box className="">
-        {messages}
-      </Box>
-    </Box>
-  );
-}
+    return <Box className={clsx(classes.root, className)}>{messages}</Box>;
+};
 
 export default MessageArea;

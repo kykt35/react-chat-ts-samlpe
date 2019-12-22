@@ -1,11 +1,11 @@
 import firebase from 'firebase/app';
 import { firebaseConfig } from './config';
-
-import "firebase/auth";
-import "firebase/firestore";
+// import * as firebaseui  from 'firebaseui';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 firebase.initializeApp(firebaseConfig);
 
-export const db = firebase.firestore()
+export const db = firebase.firestore();
 
-export default firebase
+export default firebase;

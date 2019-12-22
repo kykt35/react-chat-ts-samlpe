@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { Card, makeStyles } from '@material-ui/core';
 
-
 interface MessageCardProps {
-  children?:string;
+    children?: string;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -14,18 +13,11 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 8,
         whiteSpace: 'pre-line',
     },
-  })
-)
+}));
 
-const MessageCard: FC<MessageCardProps> = ({
-  children="テキスト"
-}) => {
-  const classes = useStyles()
-  return (
-    <Card className={classes.root}>
-      {children}
-    </Card>
-  );
-}
+const MessageCard: FC<MessageCardProps> = ({ children = 'テキスト' }) => {
+    const classes = useStyles();
+    return <Card className={classes.root}>{children}</Card>;
+};
 
 export default MessageCard;
